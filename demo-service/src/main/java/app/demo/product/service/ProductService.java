@@ -39,7 +39,7 @@ public class ProductService {
     public void update(String id, String title) {
         Optional<Product> product = productCollection.get(id);
         product.ifPresent(p -> {
-            long updatedCount = productCollection.update(Filters.eq("_id", id), Updates.set("title", title));
+            productCollection.update(Filters.eq("_id", id), Updates.set("title", title));
         });
     }
 

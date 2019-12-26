@@ -1,17 +1,11 @@
 package app.demo;
 
-import app.demo.api.customer.CustomerView;
 import app.demo.customer.domin.Customer;
 import app.demo.customer.domin.CustomerAddress;
 import app.demo.customer.domin.CustomerInfoView;
-import app.demo.customer.domin.CustomerStatus;
 import app.demo.customer.service.CustomerService;
 import core.framework.module.DBConfig;
 import core.framework.module.Module;
-
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author kimi
@@ -28,7 +22,7 @@ public class CustomerModule extends Module {
         //test();
     }
 
-    private void test() {
+    /*private void test() {
         CustomerService customerService = bean(CustomerService.class);
         CustomerView customerView = new CustomerView();
         //customerView.email = "kimi@test.com";
@@ -75,5 +69,5 @@ public class CustomerModule extends Module {
         Customer customer2 = customerService.searchOne("kimi@test.com");
 
         List<CustomerInfoView> customerInfoViewList = customerService.search(1L);
-    }
+    }*/
 }

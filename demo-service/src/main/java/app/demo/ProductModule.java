@@ -1,13 +1,9 @@
 package app.demo;
 
-import app.demo.api.product.ProductView;
 import app.demo.product.domain.Product;
-import app.demo.product.domain.ProductStatus;
 import app.demo.product.service.ProductService;
 import core.framework.module.Module;
 import core.framework.mongo.module.MongoConfig;
-
-import java.util.List;
 
 /**
  * @author kimi
@@ -21,10 +17,10 @@ public class ProductModule extends Module {
         mongo.collection(Product.class);
 
         bind(ProductService.class);
-        test();
+        //test();
     }
 
-    private void test() {
+    /*private void test() {
         ProductService productService = bean(ProductService.class);
 
         ProductView productView = new ProductView();
@@ -39,5 +35,5 @@ public class ProductModule extends Module {
         List<Product> inactiveList = productService.findByStatus(ProductStatus.INACTIVE);
         //productService.findOneByStatus(ProductStatus.ACTIVE);
         productService.findOneByStatus(ProductStatus.INACTIVE);
-    }
+    }*/
 }
