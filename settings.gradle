@@ -1,3 +1,6 @@
 rootProject.name = 'demo-kimi'
 include 'demo-service'
+include 'demo-service-db-migration'
+include 'demo-service-interface'
+include 'demo-service-mongo-migration'
 
