@@ -11,7 +11,6 @@ import core.framework.mongo.Query;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -36,11 +35,12 @@ public class ProductService {
         return productCollection.get(id).orElseThrow();
     }
 
-    public void update(String id, String title) {
-        Optional<Product> product = productCollection.get(id);
-        product.ifPresent(p -> {
-            productCollection.update(Filters.eq("_id", id), Updates.set("title", title));
-        });
+    public void replace(Product product) {
+        productCollection.replace(product);
+    }
+
+    public void update(String title, String newTitle) {
+        productCollection.update(Filters.eq("title", title), Updates.set("title", newTitle));
     }
 
     public List<Product> findByStatus(ProductStatus status) {
