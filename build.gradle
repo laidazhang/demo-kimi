@@ -42,19 +42,24 @@ configure(subprojects.findAll { it.name.matches('.*-service-interface') }) {
     }
 }
 
-configure([project(':demo-service')]) {
+configure([project(':demo-service'),
+           project(':demo-site')]) {
     apply from: file("${rootDir}/gradle/app.gradle")
     dependencies {
         implementation "core.framework:core-ng:${coreNGVersion}"
         testImplementation "core.framework:core-ng-test:${coreNGVersion}"
-        implementation "core.framework:core-ng-mongo:${coreNGVersion}"
+        implementation project(':demo-service-interface')
+
     }
 }
 
 project(':demo-service') {
     dependencies {
-        implementation project(':demo-service-interface')
         runtimeOnly 'mysql:mysql-connector-java:8.0.17'
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
+        implementation "core.framework:core-ng-mongo:${coreNGVersion}"
     }
+}
+
+project(':demo-site') {
 }

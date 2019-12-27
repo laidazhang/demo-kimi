@@ -1,28 +1,24 @@
 package app.demo.api.customer;
 
 import core.framework.api.json.Property;
-
-import java.time.ZonedDateTime;
+import core.framework.api.validate.NotBlank;
+import core.framework.api.validate.NotNull;
 
 /**
  * @author kimi
  */
-public class CustomerView {
-    @Property(name = "id")
-    public Long id;
-
-    @Property(name = "status")
-    public String status;
-
+public class CreateCustomerRequest {
+    @NotNull
+    @NotBlank
     @Property(name = "email")
     public String email;
 
+    @NotNull
+    @NotBlank
     @Property(name = "first_name")
     public String firstName;
 
+    @NotBlank
     @Property(name = "last_name")
     public String lastName;
-
-    @Property(name = "updated_time")
-    public ZonedDateTime updatedTime;
 }

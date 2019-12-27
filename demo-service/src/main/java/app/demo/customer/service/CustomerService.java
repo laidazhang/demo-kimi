@@ -1,6 +1,10 @@
 package app.demo.customer.service;
 
+import app.demo.api.customer.CreateCustomerRequest;
 import app.demo.api.customer.CustomerView;
+import app.demo.api.customer.SearchCustomerRequest;
+import app.demo.api.customer.SearchCustomerResponse;
+import app.demo.api.customer.UpdateCustomerRequest;
 import app.demo.customer.domin.Customer;
 import app.demo.customer.domin.CustomerInfoView;
 import app.demo.customer.domin.CustomerStatus;
@@ -14,6 +18,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalLong;
+import java.util.stream.Collectors;
 
 /**
  * @author kimi
@@ -24,43 +29,43 @@ public class CustomerService {
     @Inject
     Database database;
 
-    public Customer get(Integer id) {
-        return customerRepository.get(id).orElseThrow();
+    public CustomerView get(Long id) {
+        Customer customer = customerRepository.get(id).orElseThrow();
+        return view(customer);
     }
 
-    public Customer create(CustomerView customerView) {
+    public CustomerView create(CreateCustomerRequest request) {
         Customer customer = new Customer();
         customer.status = CustomerStatus.ACTIVE;
-        customer.email = customerView.email;
-        customer.firstName = customerView.firstName;
-        customer.lastName = customerView.lastName;
+        customer.email = request.email;
+        customer.firstName = request.firstName;
+        customer.lastName = request.lastName;
         customer.updatedTime = ZonedDateTime.now();
         OptionalLong id = customerRepository.insert(customer);
         customer.id = id.orElseThrow();
-        return customer;
+        return view(customer);
     }
 
     public void batchCreate(List<Customer> customerList) {
         customerRepository.batchInsert(customerList);
     }
 
-    public Customer update(CustomerView customerView) {
-        Optional<Customer> customer = customerRepository.get(customerView.id);
+    public CustomerView update(Long id, UpdateCustomerRequest request) {
+        Optional<Customer> customer = customerRepository.get(id);
         customer.ifPresent(cus -> {
-            cus.email = customerView.email;
-            cus.firstName = customerView.firstName;
-            cus.lastName = customerView.lastName;
+            cus.firstName = request.firstName;
+            cus.lastName = request.lastName;
             cus.updatedTime = ZonedDateTime.now();
             customerRepository.update(cus);
         });
-        return customer.orElseThrow();
+        return view(customer.orElseThrow());
     }
 
     public void delete(Long id) {
         customerRepository.delete(id);
     }
 
-    public List<Customer> search(CustomerView request) {
+    public SearchCustomerResponse search(SearchCustomerRequest request) {
         Query<Customer> query = customerRepository.select();
         if (!Strings.isBlank(request.status)) {
             query.where("status = ?", request.status);
@@ -74,9 +79,12 @@ public class CustomerService {
         if (!Strings.isBlank(request.lastName)) {
             query.where("last_name like ?", Strings.format("{}%", request.lastName));
         }
-        query.skip(0);
-        query.limit(10);
-        return query.fetch();
+        query.skip(request.skip);
+        query.limit(request.limit);
+        SearchCustomerResponse response = new SearchCustomerResponse();
+        response.customers = query.fetch().stream().map(this::view).collect(Collectors.toList());
+        response.total = query.count();
+        return response;
     }
 
     public List<CustomerInfoView> search(Long id) {
@@ -91,5 +99,16 @@ public class CustomerService {
     public Customer searchOne(String email) {
         Optional<Customer> customer = customerRepository.selectOne("email = ?", email);
         return customer.orElseThrow();
+    }
+
+    private CustomerView view(Customer customer) {
+        CustomerView customerView = new CustomerView();
+        customerView.id = customer.id;
+        customerView.email = customer.email;
+        customerView.firstName = customer.firstName;
+        customerView.lastName = customer.lastName;
+        customerView.status = customer.status.toString();
+        customerView.updatedTime = customer.updatedTime;
+        return customerView;
     }
 }
