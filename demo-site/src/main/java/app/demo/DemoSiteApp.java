@@ -1,7 +1,8 @@
 package app.demo;
 
-import app.demo.api.CustomerWebService;
+import app.demo.web.interceptor.LoginInterceptor;
 import core.framework.module.App;
+import core.framework.module.SystemModule;
 
 /**
  * @author kimi
@@ -9,6 +10,10 @@ import core.framework.module.App;
 public class DemoSiteApp extends App {
     @Override
     protected void initialize() {
-        api().client(CustomerWebService.class, "localhost:8080");
+        load(new SystemModule("sys.properties"));
+
+        http().intercept(new LoginInterceptor());
+        load(new LoginModule());
+        load(new CustomerModule());
     }
 }
