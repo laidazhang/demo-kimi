@@ -20,7 +20,7 @@ public class LoginInterceptor implements Interceptor {
 
         Optional<String> userName = invocation.context().request().session().get(USER_NAME);
         if (userName.isEmpty()) {
-            return invocation.proceed().status(HTTPStatus.UNAUTHORIZED);
+            return Response.empty().status(HTTPStatus.UNAUTHORIZED);
         }
         return invocation.proceed();
     }

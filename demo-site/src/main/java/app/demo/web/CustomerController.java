@@ -16,7 +16,7 @@ public class CustomerController {
     @Inject
     CustomerWebService customerService;
 
-    //@Protected
+    @Protected
     public Response create(Request request) {
         CreateCustomerRequest createCustomerRequest = request.bean(CreateCustomerRequest.class);
         CustomerView customerView = customerService.create(createCustomerRequest);

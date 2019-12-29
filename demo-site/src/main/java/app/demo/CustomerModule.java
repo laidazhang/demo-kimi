@@ -12,7 +12,7 @@ import static core.framework.http.HTTPMethod.POST;
 public class CustomerModule extends Module {
     @Override
     protected void initialize() {
-        api().client(CustomerWebService.class, "http://localhost:8080");
+        api().client(CustomerWebService.class, "http://localhost:8081");
 
         CustomerController customerController = bind(CustomerController.class);
         http().route(POST, "/customer", customerController::create);
