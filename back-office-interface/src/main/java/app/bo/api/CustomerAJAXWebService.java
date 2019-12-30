@@ -21,23 +21,23 @@ import core.framework.api.web.service.ResponseStatus;
  */
 public interface CustomerAJAXWebService {
     @POST
-    @Path("/customer")
+    @Path("/ajax/customer")
     @ResponseStatus(HTTPStatus.CREATED)
     CustomerAJAXCreateResponse create(CustomerAJAXCreateRequest request);
 
     @GET
-    @Path("/customer/:id")
+    @Path("/ajax/customer/:id")
     CustomerAJAXGetResponse get(@PathParam("id") Long id);
 
     @PUT
-    @Path("/customer/:id")
+    @Path("/ajax/customer/:id")
     CustomerAJAXUpdateResponse update(@PathParam("id") Long id, CustomerAJAXUpdateRequest request);
 
     @DELETE
-    @Path("/customer/:id")
+    @Path("/ajax/customer/:id")
     void delete(@PathParam("id") Long id);
 
     @GET
-    @Path("/customer")
+    @Path("/ajax/customer")
     CustomerAJAXSearchResponse search(CustomerAJAXSearchRequest request);
 }
