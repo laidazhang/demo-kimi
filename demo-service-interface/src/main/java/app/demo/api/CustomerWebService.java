@@ -36,6 +36,6 @@ public interface CustomerWebService {
     void delete(@PathParam("id") Long id);
 
     @GET
-    @Path("/customers")
+    @Path("/customer")
     SearchCustomerResponse search(SearchCustomerRequest request);
 }

@@ -6,8 +6,6 @@ import app.demo.product.service.ProductService;
 import core.framework.module.Module;
 import core.framework.mongo.module.MongoConfig;
 
-import java.util.List;
-
 /**
  * @author kimi
  */
@@ -27,7 +25,7 @@ public class ProductModule extends Module {
     private void test() {
         ProductService productService = bean(ProductService.class);
 
-        List<ProductAggregateView> aggregate = productService.aggregate();
+        productService.aggregate();
 
         /*ProductView productView = new ProductView();
         productView.title = "this is product title";

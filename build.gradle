@@ -36,20 +36,22 @@ configure(subprojects.findAll { it.name.endsWith('-mongo-migration') }) {
     }
 }
 
-configure(subprojects.findAll { it.name.matches('.*-service-interface') }) {
+configure(subprojects.findAll { it.name.matches('.*-interface') }) {
     dependencies {
         implementation "core.framework:core-ng-api:${coreNGVersion}"
     }
 }
 
 configure([project(':demo-service'),
-           project(':demo-site')]) {
+           project(':demo-site'),
+           project(':website'),
+           project(':back-office'),
+           project(':customer-service'),
+           project(':order-service')]) {
     apply from: file("${rootDir}/gradle/app.gradle")
     dependencies {
         implementation "core.framework:core-ng:${coreNGVersion}"
         testImplementation "core.framework:core-ng-test:${coreNGVersion}"
-        implementation project(':demo-service-interface')
-
     }
 }
 
@@ -58,8 +60,43 @@ project(':demo-service') {
         runtimeOnly 'mysql:mysql-connector-java:8.0.17'
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
         implementation "core.framework:core-ng-mongo:${coreNGVersion}"
+        implementation project(':demo-service-interface')
     }
 }
 
 project(':demo-site') {
+    dependencies {
+        implementation project(':demo-service-interface')
+    }
+}
+
+project(':customer-service') {
+    dependencies {
+        runtimeOnly 'mysql:mysql-connector-java:8.0.17'
+        testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
+        implementation project(':customer-service-interface')
+    }
+}
+
+project(':order-service') {
+    dependencies {
+        runtimeOnly 'mysql:mysql-connector-java:8.0.17'
+        testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
+        implementation project(':order-service-interface')
+    }
+}
+
+project(':website') {
+    dependencies {
+        implementation project(':customer-service-interface')
+        implementation project(':order-service-interface')
+    }
+}
+
+project(':back-office') {
+    dependencies {
+        implementation project(':customer-service-interface')
+        implementation project(':order-service-interface')
+        implementation project(':back-office-interface')
+    }
 }
