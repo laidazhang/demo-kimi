@@ -11,4 +11,5 @@ include 'order-service-interface'
 include 'back-office'
 include 'website'
 include 'back-office-interface'
+include 'demo-scheduler'
 

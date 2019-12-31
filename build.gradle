@@ -47,7 +47,8 @@ configure([project(':demo-service'),
            project(':website'),
            project(':back-office'),
            project(':customer-service'),
-           project(':order-service')]) {
+           project(':order-service'),
+           project(':demo-scheduler')]) {
     apply from: file("${rootDir}/gradle/app.gradle")
     dependencies {
         implementation "core.framework:core-ng:${coreNGVersion}"
@@ -75,6 +76,7 @@ project(':customer-service') {
         runtimeOnly 'mysql:mysql-connector-java:8.0.17'
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
         implementation project(':customer-service-interface')
+        implementation project(':order-service-interface')
     }
 }
 
@@ -99,4 +101,7 @@ project(':back-office') {
         implementation project(':order-service-interface')
         implementation project(':back-office-interface')
     }
+}
+
+project(':demo-scheduler') {
 }

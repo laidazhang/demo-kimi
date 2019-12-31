@@ -20,6 +20,8 @@ public class OrderModule extends Module {
         bind(OrderService.class);
         api().service(BOOrderWebService.class, bind(BOOrderWebServiceImpl.class));
 
+        executor().add();
+        //kafka
         kafka().publish("order-created", OrderCreatedMessage.class);
     }
 }

@@ -8,12 +8,15 @@ import app.demo.api.order.CreateOrderRequest;
 import app.demo.api.order.CreateOrderResponse;
 import app.demo.order.domain.Order;
 import app.demo.order.domain.OrderStatus;
+import core.framework.async.Executor;
 import core.framework.db.Query;
 import core.framework.db.Repository;
 import core.framework.inject.Inject;
 import core.framework.kafka.MessagePublisher;
 import core.framework.util.Strings;
 import core.framework.web.exception.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -23,10 +26,14 @@ import java.util.stream.Collectors;
  * @author kimi
  */
 public class OrderService {
+    private final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
     @Inject
     Repository<Order> orderRepository;
     @Inject
     MessagePublisher<OrderCreatedMessage> orderCreatedMessagePublisher;
+    @Inject
+    Executor executor;
 
     public BOGetOrderResponse get(Long id) {
         Order order = orderRepository.get(id).orElseThrow(() -> new NotFoundException("order not found, id =" + id));
@@ -76,6 +83,8 @@ public class OrderService {
         order.createdTime = ZonedDateTime.now();
         long orderId = orderRepository.insert(order).orElseThrow();
 
+        //executor
+        printOrder(order);
         //kafka
         OrderCreatedMessage orderCreatedMessage = new OrderCreatedMessage();
         orderCreatedMessage.id = String.valueOf(orderId);
@@ -90,5 +99,9 @@ public class OrderService {
         response.totalPrice = order.totalPrice;
         response.createdTime = order.createdTime;
         return response;
+    }
+
+    private void printOrder(final Order order) {
+        executor.submit("order-created", () -> logger.info("executor submit, orderId={}, time={}", order.id, ZonedDateTime.now()));
     }
 }
