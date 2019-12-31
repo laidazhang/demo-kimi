@@ -6,7 +6,7 @@ import core.framework.api.web.service.QueryParam;
 /**
  * @author kimi
  */
-public class CustomerAJAXSearchRequest {
+public class SearchCustomerAJAXRequest {
     @QueryParam(name = "status")
     public String status;
 

@@ -1,4 +1,4 @@
-package app.demo;
+package app;
 
 import app.demo.painter.service.BrushService;
 import app.demo.painter.service.PainterService;

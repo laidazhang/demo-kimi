@@ -1,4 +1,4 @@
-package app.demo;
+package app;
 
 import app.demo.api.CustomerWebService;
 import app.demo.web.CustomerController;

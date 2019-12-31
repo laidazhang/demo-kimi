@@ -1,4 +1,4 @@
-package app.demo;
+package app;
 
 import app.demo.web.LoginController;
 import app.demo.web.ajax.LoginRequest;

@@ -1,11 +1,11 @@
-package app.demo;
+package app;
 
-import app.demo.api.CustomerWebService;
+import app.demo.api.BOCustomerWebService;
 import app.demo.customer.domin.Customer;
 import app.demo.customer.domin.CustomerAddress;
-import app.demo.customer.domin.CustomerInfoView;
+import app.demo.customer.domin.CustomerView;
 import app.demo.customer.service.CustomerService;
-import app.demo.customer.web.CustomerWebServiceImpl;
+import app.demo.customer.web.BOCustomerWebServiceImpl;
 import core.framework.module.DBConfig;
 import core.framework.module.Module;
 
@@ -17,13 +17,13 @@ public class CustomerModule extends Module {
     protected void initialize() {
         configDB();
         bind(CustomerService.class);
-        api().service(CustomerWebService.class, bind(CustomerWebServiceImpl.class));
+        api().service(BOCustomerWebService.class, bind(BOCustomerWebServiceImpl.class));
     }
 
     private void configDB() {
         DBConfig db = db();
         db.repository(Customer.class);
         db.repository(CustomerAddress.class);
-        db.view(CustomerInfoView.class);
+        db.view(CustomerView.class);
     }
 }

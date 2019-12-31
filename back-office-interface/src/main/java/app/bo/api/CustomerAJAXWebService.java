@@ -1,12 +1,12 @@
 package app.bo.api;
 
-import app.bo.api.ajax.CustomerAJAXCreateRequest;
-import app.bo.api.ajax.CustomerAJAXCreateResponse;
-import app.bo.api.ajax.CustomerAJAXGetResponse;
-import app.bo.api.ajax.CustomerAJAXSearchRequest;
-import app.bo.api.ajax.CustomerAJAXSearchResponse;
-import app.bo.api.ajax.CustomerAJAXUpdateRequest;
-import app.bo.api.ajax.CustomerAJAXUpdateResponse;
+import app.bo.api.ajax.CreateCustomerAJAXRequest;
+import app.bo.api.ajax.CreateCustomerAJAXResponse;
+import app.bo.api.ajax.GetCustomerAJAXResponse;
+import app.bo.api.ajax.SearchCustomerAJAXRequest;
+import app.bo.api.ajax.SearchCustomerAJAXResponse;
+import app.bo.api.ajax.UpdateCustomerAJAXRequest;
+import app.bo.api.ajax.UpdateCustomerAJAXResponse;
 import core.framework.api.http.HTTPStatus;
 import core.framework.api.web.service.DELETE;
 import core.framework.api.web.service.GET;
@@ -23,15 +23,15 @@ public interface CustomerAJAXWebService {
     @POST
     @Path("/ajax/customer")
     @ResponseStatus(HTTPStatus.CREATED)
-    CustomerAJAXCreateResponse create(CustomerAJAXCreateRequest request);
+    CreateCustomerAJAXResponse create(CreateCustomerAJAXRequest request);
 
     @GET
     @Path("/ajax/customer/:id")
-    CustomerAJAXGetResponse get(@PathParam("id") Long id);
+    GetCustomerAJAXResponse get(@PathParam("id") Long id);
 
     @PUT
     @Path("/ajax/customer/:id")
-    CustomerAJAXUpdateResponse update(@PathParam("id") Long id, CustomerAJAXUpdateRequest request);
+    UpdateCustomerAJAXResponse update(@PathParam("id") Long id, UpdateCustomerAJAXRequest request);
 
     @DELETE
     @Path("/ajax/customer/:id")
@@ -39,5 +39,5 @@ public interface CustomerAJAXWebService {
 
     @GET
     @Path("/ajax/customer")
-    CustomerAJAXSearchResponse search(CustomerAJAXSearchRequest request);
+    SearchCustomerAJAXResponse search(SearchCustomerAJAXRequest request);
 }

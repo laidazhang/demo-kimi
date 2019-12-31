@@ -1,4 +1,4 @@
-import app.demo.WebsiteApp;
+import app.WebsiteApp;
 
 /**
  * @author kimi

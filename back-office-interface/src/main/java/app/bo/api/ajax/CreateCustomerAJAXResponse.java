@@ -2,12 +2,12 @@ package app.bo.api.ajax;
 
 import core.framework.api.json.Property;
 
-import java.util.List;
+import java.time.ZonedDateTime;
 
 /**
  * @author kimi
  */
-public class CustomerAJAXGetResponse {
+public class CreateCustomerAJAXResponse {
     @Property(name = "id")
     public Long id;
 
@@ -23,6 +23,6 @@ public class CustomerAJAXGetResponse {
     @Property(name = "last_name")
     public String lastName;
 
-    @Property(name = "orders")
-    public List<Order> orderList;
+    @Property(name = "updated_time")
+    public ZonedDateTime updatedTime;
 }

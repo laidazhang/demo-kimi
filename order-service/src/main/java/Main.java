@@ -1,4 +1,4 @@
-import app.demo.OrderServiceApp;
+import app.OrderServiceApp;
 
 /**
  * @author kimi

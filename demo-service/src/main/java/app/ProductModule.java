@@ -1,4 +1,4 @@
-package app.demo;
+package app;
 
 import app.demo.product.domain.Product;
 import app.demo.product.domain.ProductAggregateView;

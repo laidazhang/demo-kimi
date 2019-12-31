@@ -13,7 +13,7 @@ public class BOSearchOrderResponse {
     public Integer total;
 
     @Property(name = "orders")
-    public List<Order> orderList;
+    public List<Order> orders;
 
     public static class Order {
         @Property(name = "id")

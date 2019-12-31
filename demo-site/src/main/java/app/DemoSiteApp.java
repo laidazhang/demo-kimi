@@ -1,4 +1,4 @@
-package app.demo;
+package app;
 
 import app.demo.web.interceptor.LoginInterceptor;
 import core.framework.module.App;

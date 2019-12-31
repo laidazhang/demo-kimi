@@ -12,11 +12,11 @@ import core.framework.api.web.service.PathParam;
  */
 public interface BOOrderWebService {
     @GET
-    @Path("/order/:id")
+    @Path("/bo/order/:id")
     BOGetOrderResponse get(@PathParam("id") Long id);
 
     @GET
-    @Path("/order")
+    @Path("/bo/order")
     BOSearchOrderResponse search(BOSearchOrderRequest request);
 
 }

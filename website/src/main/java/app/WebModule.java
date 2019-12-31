@@ -1,4 +1,4 @@
-package app.demo;
+package app;
 
 import app.demo.web.HomeController;
 import core.framework.http.HTTPMethod;

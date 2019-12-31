@@ -21,23 +21,23 @@ import core.framework.api.web.service.ResponseStatus;
  */
 public interface BOCustomerWebService {
     @POST
-    @Path("/customer")
+    @Path("/bo/customer")
     @ResponseStatus(HTTPStatus.CREATED)
     BOCreateCustomerResponse create(BOCreateCustomerRequest request);
 
     @GET
-    @Path("/customer/:id")
+    @Path("/bo/customer/:id")
     BOGetCustomerResponse get(@PathParam("id") Long id);
 
     @PUT
-    @Path("/customer/:id")
+    @Path("/bo/customer/:id")
     BOUpdateCustomerResponse update(@PathParam("id") Long id, BOUpdateCustomerRequest request);
 
     @DELETE
-    @Path("/customer/:id")
+    @Path("/bo/customer/:id")
     void delete(@PathParam("id") Long id);
 
     @GET
-    @Path("/customer")
+    @Path("/bo/customer")
     BOSearchCustomerResponse search(BOSearchCustomerRequest request);
 }

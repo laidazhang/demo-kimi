@@ -1,8 +1,9 @@
-package app.web;
+package app;
 
 import app.bo.api.CustomerAJAXWebService;
 import app.demo.api.BOCustomerWebService;
 import app.demo.api.BOOrderWebService;
+import app.demo.api.kafka.OrderCreatedMessage;
 import app.web.ajax.CustomerAJAXWebServiceImpl;
 import core.framework.module.Module;
 

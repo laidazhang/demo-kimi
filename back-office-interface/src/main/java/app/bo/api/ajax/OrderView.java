@@ -4,7 +4,7 @@ import core.framework.api.json.Property;
 
 import java.time.ZonedDateTime;
 
-public class Order {
+public class OrderView {
     @Property(name = "id")
     public Long id;
 
@@ -18,7 +18,7 @@ public class Order {
     public Long customerId;
 
     @Property(name = "address_id")
-    public Long firstName;
+    public Long addressId;
 
     @Property(name = "created_time")
     public ZonedDateTime createdTime;

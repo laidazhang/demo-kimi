@@ -1,14 +1,14 @@
 package app.web.ajax;
 
 import app.bo.api.CustomerAJAXWebService;
-import app.bo.api.ajax.CustomerAJAXCreateRequest;
-import app.bo.api.ajax.CustomerAJAXCreateResponse;
-import app.bo.api.ajax.CustomerAJAXGetResponse;
-import app.bo.api.ajax.CustomerAJAXSearchRequest;
-import app.bo.api.ajax.CustomerAJAXSearchResponse;
-import app.bo.api.ajax.CustomerAJAXUpdateRequest;
-import app.bo.api.ajax.CustomerAJAXUpdateResponse;
-import app.bo.api.ajax.Order;
+import app.bo.api.ajax.CreateCustomerAJAXRequest;
+import app.bo.api.ajax.CreateCustomerAJAXResponse;
+import app.bo.api.ajax.GetCustomerAJAXResponse;
+import app.bo.api.ajax.SearchCustomerAJAXRequest;
+import app.bo.api.ajax.SearchCustomerAJAXResponse;
+import app.bo.api.ajax.UpdateCustomerAJAXRequest;
+import app.bo.api.ajax.UpdateCustomerAJAXResponse;
+import app.bo.api.ajax.OrderView;
 import app.demo.api.BOCustomerWebService;
 import app.demo.api.BOOrderWebService;
 import app.demo.api.customer.BOCreateCustomerRequest;
@@ -34,22 +34,22 @@ public class CustomerAJAXWebServiceImpl implements CustomerAJAXWebService {
     BOOrderWebService orderWebService;
 
     @Override
-    public CustomerAJAXCreateResponse create(CustomerAJAXCreateRequest request) {
+    public CreateCustomerAJAXResponse create(CreateCustomerAJAXRequest request) {
         BOCreateCustomerRequest createCustomerRequest = new BOCreateCustomerRequest();
         createCustomerRequest.email = request.email;
         createCustomerRequest.firstName = request.firstName;
         createCustomerRequest.lastName = request.lastName;
         BOCreateCustomerResponse createCustomerResponse = customerWebService.create(createCustomerRequest);
-        CustomerAJAXCreateResponse response = new CustomerAJAXCreateResponse();
+        CreateCustomerAJAXResponse response = new CreateCustomerAJAXResponse();
         response.id = createCustomerResponse.id;
         response.firstName = createCustomerResponse.firstName;
         return response;
     }
 
     @Override
-    public CustomerAJAXGetResponse get(Long id) {
+    public GetCustomerAJAXResponse get(Long id) {
         BOGetCustomerResponse getCustomerResponse = customerWebService.get(id);
-        CustomerAJAXGetResponse response = new CustomerAJAXGetResponse();
+        GetCustomerAJAXResponse response = new GetCustomerAJAXResponse();
         response.id = getCustomerResponse.id;
         response.email = getCustomerResponse.email;
         response.firstName = getCustomerResponse.firstName;
@@ -59,24 +59,24 @@ public class CustomerAJAXWebServiceImpl implements CustomerAJAXWebService {
         searchOrderRequest.limit = 3;
         BOSearchOrderResponse searchOrderResponse = orderWebService.search(searchOrderRequest);
         if (searchOrderResponse.total > 0) {
-            response.orderList = searchOrderResponse.orderList.stream().map(item -> {
-                Order order = new Order();
-                order.id = item.id;
-                order.totalPrice = item.totalPrice;
-                order.status = item.status;
-                return order;
+            response.orders = searchOrderResponse.orders.stream().map(item -> {
+                OrderView orderView = new OrderView();
+                orderView.id = item.id;
+                orderView.totalPrice = item.totalPrice;
+                orderView.status = item.status;
+                return orderView;
             }).collect(Collectors.toList());
         }
         return response;
     }
 
     @Override
-    public CustomerAJAXUpdateResponse update(Long id, CustomerAJAXUpdateRequest request) {
+    public UpdateCustomerAJAXResponse update(Long id, UpdateCustomerAJAXRequest request) {
         BOUpdateCustomerRequest updateCustomerRequest = new BOUpdateCustomerRequest();
         updateCustomerRequest.firstName = request.firstName;
         updateCustomerRequest.lastName = request.lastName;
         BOUpdateCustomerResponse updateCustomerResponse = customerWebService.update(id, updateCustomerRequest);
-        CustomerAJAXUpdateResponse response = new CustomerAJAXUpdateResponse();
+        UpdateCustomerAJAXResponse response = new UpdateCustomerAJAXResponse();
         response.firstName = updateCustomerResponse.firstName;
         response.lastName = updateCustomerResponse.lastName;
         return response;
@@ -88,7 +88,7 @@ public class CustomerAJAXWebServiceImpl implements CustomerAJAXWebService {
     }
 
     @Override
-    public CustomerAJAXSearchResponse search(CustomerAJAXSearchRequest request) {
+    public SearchCustomerAJAXResponse search(SearchCustomerAJAXRequest request) {
         BOSearchCustomerRequest searchCustomerRequest = new BOSearchCustomerRequest();
         searchCustomerRequest.email = request.email;
         searchCustomerRequest.firstName = request.firstName;
@@ -96,11 +96,11 @@ public class CustomerAJAXWebServiceImpl implements CustomerAJAXWebService {
         searchCustomerRequest.skip = request.skip;
         searchCustomerRequest.limit = request.limit;
         BOSearchCustomerResponse searchCustomerResponse = customerWebService.search(searchCustomerRequest);
-        CustomerAJAXSearchResponse response = new CustomerAJAXSearchResponse();
+        SearchCustomerAJAXResponse response = new SearchCustomerAJAXResponse();
         response.total = searchCustomerResponse.total;
         if (searchCustomerResponse.customerList != null && !searchCustomerResponse.customerList.isEmpty()) {
-            response.customerList = searchCustomerResponse.customerList.stream().map(item -> {
-                CustomerAJAXSearchResponse.Customer customer = new CustomerAJAXSearchResponse.Customer();
+            response.customers = searchCustomerResponse.customerList.stream().map(item -> {
+                SearchCustomerAJAXResponse.Customer customer = new SearchCustomerAJAXResponse.Customer();
                 customer.id = item.id;
                 customer.email = item.email;
                 customer.firstName = item.firstName;

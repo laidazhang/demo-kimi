@@ -1,6 +1,7 @@
-package app.demo;
+package app;
 
 import app.demo.api.BOOrderWebService;
+import app.demo.api.kafka.OrderCreatedMessage;
 import app.demo.order.domain.Order;
 import app.demo.order.service.OrderService;
 import app.demo.order.web.BOOrderWebServiceImpl;
@@ -18,5 +19,7 @@ public class OrderModule extends Module {
 
         bind(OrderService.class);
         api().service(BOOrderWebService.class, bind(BOOrderWebServiceImpl.class));
+
+        kafka().publish("order-created", OrderCreatedMessage.class);
     }
 }

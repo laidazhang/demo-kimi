@@ -1,5 +1,6 @@
 package app.demo;
 
+import app.DemoServiceApp;
 import core.framework.test.module.AbstractTestModule;
 
 /**

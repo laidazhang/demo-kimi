@@ -8,12 +8,12 @@ import java.util.List;
 /**
  * @author kimi
  */
-public class CustomerAJAXSearchResponse {
+public class SearchCustomerAJAXResponse {
     @Property(name = "total")
     public Integer total;
 
     @Property(name = "customers")
-    public List<Customer> customerList;
+    public List<Customer> customers;
 
     public static class Customer {
         @Property(name = "id")
