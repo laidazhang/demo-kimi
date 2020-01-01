@@ -82,6 +82,7 @@ public class OrderService {
         order.totalPrice = request.totalPrice;
         order.createdTime = ZonedDateTime.now();
         long orderId = orderRepository.insert(order).orElseThrow();
+        order.id = orderId;
 
         //executor
         printOrder(order);

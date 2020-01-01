@@ -10,6 +10,7 @@ public class CustomerServiceApp extends App {
     @Override
     protected void initialize() {
         load(new SystemModule("sys.properties"));
+        load(new AsyncModule());
         load(new CustomerModule());
     }
 }

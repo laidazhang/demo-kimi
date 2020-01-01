@@ -21,10 +21,6 @@ public class CustomerModule extends Module {
         configDB();
         bind(CustomerService.class);
         api().service(BOCustomerWebService.class, bind(BOCustomerWebServiceImpl.class));
-
-        //kafka
-        kafka().subscribe("order-created", OrderCreatedMessage.class, bind(OrderCreatedMessageHandler.class));
-        //kafka().subscribe("order-created", OrderCreatedMessage.class, bind(BulkOrderCreatedMessageHandler.class));
     }
 
     private void configDB() {
