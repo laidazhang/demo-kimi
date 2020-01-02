@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `customers` (
   `id`           INT AUTO_INCREMENT,
-  `status`       ENUM ('ACTIVE', 'INACTIVE') NOT NULL,
+  `status`       VARCHAR(15)                 NOT NULL COMMENT 'ACTIVE, INACTIVE',
   `email`        VARCHAR(50)                 NOT NULL UNIQUE,
   `first_name`   VARCHAR(50)                 NOT NULL,
   `last_name`    VARCHAR(50),
