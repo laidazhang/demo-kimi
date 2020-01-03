@@ -11,6 +11,7 @@ public class AsyncModule extends Module {
     @Override
     protected void initialize() {
         //kafka
+        kafka().poolSize(2);
         //kafka().subscribe("order-created", OrderCreatedMessage.class, bind(OrderCreatedMessageHandler.class));
         kafka().subscribe("order-created", OrderCreatedMessage.class, bind(BulkOrderCreatedMessageHandler.class));
     }
