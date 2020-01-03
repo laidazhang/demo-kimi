@@ -9,6 +9,7 @@ import app.demo.api.customer.BOUpdateCustomerRequest;
 import app.demo.api.customer.BOUpdateCustomerResponse;
 import app.demo.customer.domin.Customer;
 import app.demo.customer.domin.CustomerStatus;
+import core.framework.cache.Cache;
 import core.framework.db.Database;
 import core.framework.db.Query;
 import core.framework.db.Repository;
@@ -28,10 +29,14 @@ public class CustomerService {
     Repository<Customer> customerRepository;
     @Inject
     Database database;
+    @Inject
+    Cache<BOGetCustomerResponse> customerCache;
 
     public BOGetCustomerResponse get(Long id) {
-        Customer customer = customerRepository.get(id).orElseThrow();
-        return getView(customer);
+        return customerCache.get(String.valueOf(id), (key) -> {
+            Customer customer = customerRepository.get(id).orElseThrow();
+            return getView(customer);
+        });
     }
 
     public BOCreateCustomerResponse create(BOCreateCustomerRequest request) {
