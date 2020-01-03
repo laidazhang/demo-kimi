@@ -1,4 +1,4 @@
-import app.web.BackOfficeApp;
+import app.BackOfficeApp;
 
 /**
  * @author kimi

@@ -3,7 +3,6 @@ package app;
 import app.bo.api.CustomerAJAXWebService;
 import app.demo.api.BOCustomerWebService;
 import app.demo.api.BOOrderWebService;
-import app.demo.api.kafka.OrderCreatedMessage;
 import app.web.ajax.CustomerAJAXWebServiceImpl;
 import core.framework.module.Module;
 
@@ -17,5 +16,7 @@ public class WebModule extends Module {
         api().client(BOOrderWebService.class, requiredProperty("app.orderServiceURL"));
 
         api().service(CustomerAJAXWebService.class, bind(CustomerAJAXWebServiceImpl.class));
+
+        //http().limitRate().add("customer", 3, 1, TimeUnit.MINUTES);
     }
 }

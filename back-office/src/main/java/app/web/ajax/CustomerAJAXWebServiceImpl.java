@@ -4,11 +4,11 @@ import app.bo.api.CustomerAJAXWebService;
 import app.bo.api.ajax.CreateCustomerAJAXRequest;
 import app.bo.api.ajax.CreateCustomerAJAXResponse;
 import app.bo.api.ajax.GetCustomerAJAXResponse;
+import app.bo.api.ajax.OrderView;
 import app.bo.api.ajax.SearchCustomerAJAXRequest;
 import app.bo.api.ajax.SearchCustomerAJAXResponse;
 import app.bo.api.ajax.UpdateCustomerAJAXRequest;
 import app.bo.api.ajax.UpdateCustomerAJAXResponse;
-import app.bo.api.ajax.OrderView;
 import app.demo.api.BOCustomerWebService;
 import app.demo.api.BOOrderWebService;
 import app.demo.api.customer.BOCreateCustomerRequest;
@@ -47,6 +47,7 @@ public class CustomerAJAXWebServiceImpl implements CustomerAJAXWebService {
     }
 
     @Override
+    //@LimitRate("customer")
     public GetCustomerAJAXResponse get(Long id) {
         BOGetCustomerResponse getCustomerResponse = customerWebService.get(id);
         GetCustomerAJAXResponse response = new GetCustomerAJAXResponse();

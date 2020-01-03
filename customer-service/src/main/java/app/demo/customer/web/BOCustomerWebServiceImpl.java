@@ -10,6 +10,7 @@ import app.demo.api.customer.BOUpdateCustomerRequest;
 import app.demo.api.customer.BOUpdateCustomerResponse;
 import app.demo.customer.service.CustomerService;
 import core.framework.inject.Inject;
+import core.framework.log.ActionLogContext;
 
 /**
  * @author kimi
@@ -20,6 +21,9 @@ public class BOCustomerWebServiceImpl implements BOCustomerWebService {
 
     @Override
     public BOCreateCustomerResponse create(BOCreateCustomerRequest request) {
+        ActionLogContext.put("email", request.email);
+        ActionLogContext.put("firstName", request.firstName);
+        ActionLogContext.put("lastName", request.lastName);
         return customerService.create(request);
     }
 
@@ -30,6 +34,9 @@ public class BOCustomerWebServiceImpl implements BOCustomerWebService {
 
     @Override
     public BOUpdateCustomerResponse update(Long id, BOUpdateCustomerRequest request) {
+        ActionLogContext.put("customerId", id);
+        ActionLogContext.put("firstName", request.firstName);
+        ActionLogContext.put("lastName", request.lastName);
         return customerService.update(id, request);
     }
 

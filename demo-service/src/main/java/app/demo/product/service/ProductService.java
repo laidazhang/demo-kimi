@@ -72,6 +72,4 @@ public class ProductService {
         aggregate.resultClass = ProductAggregateView.class;
         return productCollection.aggregate(aggregate);
     }
-
-
 }

@@ -2,7 +2,6 @@ package app;
 
 import app.demo.api.BOOrderWebService;
 import app.demo.api.OrderWebService;
-import app.demo.api.kafka.OrderCreatedMessage;
 import app.demo.order.domain.Order;
 import app.demo.order.service.OrderService;
 import app.demo.order.web.BOOrderWebServiceImpl;
